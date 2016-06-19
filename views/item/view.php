@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model bariew\logModule\models\Item */
 
 $this->title = Yii::t('app', 'View Log');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('modules/log', 'Events'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('modules/log', 'Log list'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="item-view">
@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('modules/log', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('modules/log', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -30,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'user_id',
             'event',
-            'link',
-            'message:ntext',
+            'link:html',
+            'message:html',
             'created_at:datetime',
         ],
     ]) ?>

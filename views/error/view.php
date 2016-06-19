@@ -1,11 +1,11 @@
 <?php
 
 use yii\widgets\DetailView;
-use common\modules\log\models\LogError;
+use bariew\logModule\models\Error;
 use yii\web\View;
 /**
  * @var View $this
- * @var LogError $model
+ * @var Error $model
  */
 
 $this->registerJsFile("https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=sons-of-obsidian");

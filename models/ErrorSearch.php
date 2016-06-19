@@ -7,15 +7,16 @@
  
 namespace bariew\logModule\models;
 
+use bariew\abstractModule\models\AbstractModelExtender;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yii\log\Logger;
 
 /**
  * Error represents the model behind the search form about `common\modules\log\models\Error`.
+ * @mixin Error
  */
-class ErrorSearch extends Error
+class ErrorSearch extends AbstractModelExtender
 {
     /**
      * @inheritdoc
@@ -23,7 +24,7 @@ class ErrorSearch extends Error
     public function rules()
     {
         return [
-            [['id', 'level'], 'integer'],
+            [['id', 'level', 'owner_id'], 'integer'],
             [['category', 'prefix', 'message', 'request', 'log_time', 'request'], 'safe'],
         ];
     }
@@ -42,10 +43,10 @@ class ErrorSearch extends Error
      * @param array $params search params
      * @return \yii\data\ActiveDataProvider dataProvider
      */
-    public function search($params)
+    public function search($params = [])
     {
-        $t = self::tableName();
-        $query = Error::find();
+        $t = parent::tableName();
+        $query = parent::search();
         $query->orderBy(["$t.log_time" => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,6 +59,7 @@ class ErrorSearch extends Error
         $query->andFilterWhere([
             $t.'.id' => $this->id,
             $t.'.level' => $this->level,
+            $t.'.owner_id' => $this->owner_id,
         ]);
 
         $query->andFilterWhere(['like', $t.'.category', $this->category])

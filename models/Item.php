@@ -2,6 +2,7 @@
 
 namespace bariew\logModule\models;
 
+use bariew\abstractModule\models\AbstractModel;
 use Yii;
 use yii\base\Event;
 use yii\behaviors\TimestampBehavior;
@@ -14,6 +15,7 @@ use app\modules\user\models\User;
  *
  * @property integer $id
  * @property integer $user_id
+ * @property integer $owner_id
  * @property string $event
  * @property string $model_name
  * @property string $model_id
@@ -22,23 +24,15 @@ use app\modules\user\models\User;
  *
  * @property User $user
  */
-class Item extends ActiveRecord
+class Item extends AbstractModel
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%log_item}}';
-    }
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['user_id', 'created_at'], 'integer'],
+            [['owner_id', 'user_id', 'created_at'], 'integer'],
             [['message'], 'string'],
             [['event', 'model_name', 'model_id'], 'string', 'max' => 255],
         ];
@@ -51,6 +45,7 @@ class Item extends ActiveRecord
     {
         return [
             'id' => Yii::t('modules/log', 'ID'),
+            'owner_id'   =>  Yii::t('modules/log', 'Owner'),
             'user_id' => Yii::t('modules/log', 'User'),
             'event' => Yii::t('modules/log', 'Event'),
             'model_name' => Yii::t('modules/log', 'Model Name'),

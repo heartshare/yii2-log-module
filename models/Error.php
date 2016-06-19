@@ -7,6 +7,7 @@
  
 namespace bariew\logModule\models;
 
+use bariew\abstractModule\models\AbstractModel;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\log\Logger;
@@ -15,6 +16,7 @@ use yii\log\Logger;
  * This is the model class for table "log_error".
  *
  * @property integer $id
+ * @property integer $owner_id
  * @property integer $level
  * @property string $category
  * @property integer $log_time
@@ -22,7 +24,7 @@ use yii\log\Logger;
  * @property string $message
  * @property boolean $active Whether error is fixed.
  */
-class Error extends ActiveRecord
+class Error extends AbstractModel
 {
     /**
      * @var string data of application request log.
@@ -30,32 +32,13 @@ class Error extends ActiveRecord
      */
     public $request;
 
-    const ACTIVE_YES = 1;
-    const ACTIVE_NO = 0;
-
-    public static function activeList()
-    {
-        return [
-            self::ACTIVE_NO  => Yii::t('app', 'No'),
-            self::ACTIVE_YES => Yii::t('app', 'Yes'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%log_error}}';
-    }
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['level', 'log_time', 'active'], 'integer'],
+            [['level', 'log_time', 'owner_id'], 'integer'],
             [['category', 'prefix'], 'string', 'max' => 255]
         ];
     }
@@ -66,18 +49,18 @@ class Error extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id'       =>  Yii::t('app', 'Id'),
-            'level'    =>  Yii::t('app', 'Level'),
-            'category' =>  Yii::t('app', 'Category'),
-            'log_time' =>  Yii::t('app', 'Log Time'),
-            'prefix'   =>  Yii::t('app', 'Prefix'),
-            'message'  =>  Yii::t('app', 'Message'),
-            'active'   =>  Yii::t('app', 'Active'),
+            'id'       =>  Yii::t('modules/log', 'Id'),
+            'owner_id'   =>  Yii::t('modules/log', 'Owner'),
+            'level'    =>  Yii::t('modules/log', 'Level'),
+            'category' =>  Yii::t('modules/log', 'Category'),
+            'log_time' =>  Yii::t('modules/log', 'Log Time'),
+            'prefix'   =>  Yii::t('modules/log', 'Prefix'),
+            'message'  =>  Yii::t('modules/log', 'Message'),
         ];
     }
 
 
-    public static function levelList()
+    public function levelList()
     {
         return [
             Logger::LEVEL_ERROR         => 'ERROR',
@@ -92,15 +75,15 @@ class Error extends ActiveRecord
 
     public function getLevelName()
     {
-        return self::levelList()[$this->level];
+        return static::levelList()[$this->level];
     }
 
     /**
-     * @return \self
+     * @return \static
      */
     public function getErrorQuery()
     {
-        return self::find()->where([
+        return static::find()->where([
             'id'        => $this->id + 1,
             'category'  => 'application'
         ])->one();

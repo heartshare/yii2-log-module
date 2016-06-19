@@ -2,15 +2,18 @@
 
 namespace bariew\logModule\models;
 
+use bariew\abstractModule\models\AbstractModelExtender;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use bariew\logModule\models\Item;
+
 
 /**
  * ItemSearch represents the model behind the search form about `bariew\logModule\models\Item`.
+ *
+ * @mixin Item
  */
-class ItemSearch extends Item
+class ItemSearch extends AbstractModelExtender
 {
     /**
      * @inheritdoc
@@ -18,7 +21,7 @@ class ItemSearch extends Item
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
+            [['id', 'owner_id', 'user_id'], 'integer'],
             [['event', 'model_name', 'model_id', 'message', 'created_at'], 'safe'],
         ];
     }
@@ -37,12 +40,11 @@ class ItemSearch extends Item
      *
      * @param array $params
      *
-     * @param null $fullName
      * @return ActiveDataProvider
      */
-    public function search($params, $fullName = null)
+    public function search($params = [])
     {
-        $query = Item::find();
+        $query = parent::search();
 
         // add conditions that should always apply here
 
@@ -51,7 +53,7 @@ class ItemSearch extends Item
             'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]]
         ]);
 
-        $this->load($params, $fullName);
+        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -63,6 +65,7 @@ class ItemSearch extends Item
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'owner_id' => $this->owner_id,
         ]);
 
         $query->andFilterWhere(['like', 'event', $this->event])
