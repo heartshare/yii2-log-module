@@ -3,6 +3,7 @@
 namespace bariew\logModule\models;
 
 use bariew\abstractModule\models\AbstractModel;
+use bariew\yii2Tools\helpers\ModelHelper;
 use Yii;
 use yii\base\Event;
 use yii\behaviors\TimestampBehavior;
@@ -101,17 +102,7 @@ class Item extends AbstractModel
      */
     public function getLink($options = [])
     {
-        list($app, $module, $moduleName, $model, $modelName) = explode('\\', $this->model_name);
-        list($modulePath, $modelPath)
-            = [Inflector::camel2id($moduleName), Inflector::camel2id($modelName)];
-        $modelName = ($modulePath == $modelPath || $modelPath == 'item')
-            ? $moduleName
-            :  "{$moduleName} {$modelName}";
-        return Html::a(
-            "{$modelName}#{$this->model_id}",
-            ["/{$modulePath}/{$modelPath}/view", 'id' => $this->model_id],
-            $options
-        );
+        return ModelHelper::getLink($this->model_name, $this->model_id, $options);
     }
 
     /**
