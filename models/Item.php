@@ -85,6 +85,15 @@ class Item extends AbstractModel
         return User::find()->orderBy('username')->indexBy('id')->select('username')->column();
     }
 
+
+    /**
+     * @return array
+     */
+    public static function eventList()
+    {
+        return static::find()->orderBy('event')->indexBy('event')->select('event')->column();
+    }
+
     /**
      * Gets link to logged model
      * @param array $options
@@ -93,11 +102,14 @@ class Item extends AbstractModel
     public function getLink($options = [])
     {
         list($app, $module, $moduleName, $model, $modelName) = explode('\\', $this->model_name);
-        list($moduleController, $modelController)
+        list($modulePath, $modelPath)
             = [Inflector::camel2id($moduleName), Inflector::camel2id($modelName)];
+        $modelName = ($modulePath == $modelPath || $modelPath == 'item')
+            ? $moduleName
+            :  "{$moduleName} {$modelName}";
         return Html::a(
-            "{$moduleName} {$modelName}#{$this->model_id}",
-            ["/{$moduleController}/{$modelController}/view", 'id' => $this->model_id],
+            "{$modelName}#{$this->model_id}",
+            ["/{$modulePath}/{$modelPath}/view", 'id' => $this->model_id],
             $options
         );
     }

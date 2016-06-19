@@ -27,10 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'user_id',
-            'event',
-            'link:html',
-            'message:html',
+            \bariew\yii2Tools\helpers\GridHelper::listFormat($model, 'user_id'),
+            \bariew\yii2Tools\helpers\GridHelper::listFormat($model, 'event'),
+            'link:raw',
+            'message:raw',
             'created_at:datetime',
         ],
     ]) ?>

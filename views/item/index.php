@@ -22,19 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'link:raw',
             GridHelper::dateFormat($searchModel, 'created_at', ['format'=> 'datetime']),
             GridHelper::listFormat($searchModel, 'user_id'),
-            'event',
+            GridHelper::listFormat($searchModel, 'event'),
             'message:raw',
-//            'message' => [
-//                'format' => 'raw',
-//                'value' => function($data) {
-//                    $diff = new \cogpowered\FineDiff\Diff();
-//                    $result = $diff->render(
-//                        preg_replace(['#[\s\n]*\)#', '#Array[\s\n]*\(#'], ['', ''], print_r(['a'=> 'asd sdf fgh','b' => 2, 'c' => 3], true)),
-//                        preg_replace(['#[\s\n]*\)#', '#Array[\s\n]*\(#'], ['', ''], print_r(['a' => 'asd 111 fgh','d' => 4], true))
-//                    );
-//                    return '<pre>'.$result.'</pre>';
-//                }
-//            ],
             ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {delete}'],
         ],
     ]); ?>
