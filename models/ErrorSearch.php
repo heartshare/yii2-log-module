@@ -24,7 +24,7 @@ class ErrorSearch extends AbstractModelExtender
     public function rules()
     {
         return [
-            [['id', 'level', 'owner_id'], 'integer'],
+            [['id', 'level'], 'integer'],
             [['category', 'prefix', 'message', 'request', 'log_time', 'request'], 'safe'],
         ];
     }
@@ -59,7 +59,6 @@ class ErrorSearch extends AbstractModelExtender
         $query->andFilterWhere([
             $t.'.id' => $this->id,
             $t.'.level' => $this->level,
-            $t.'.owner_id' => $this->owner_id,
         ]);
 
         $query->andFilterWhere(['like', $t.'.category', $this->category])

@@ -2,21 +2,14 @@
 
 namespace bariew\logModule\controllers;
 
-use bariew\logModule\controllers\actions\ErrorDelete;
-use bariew\logModule\controllers\actions\ErrorDeleteAll;
-use bariew\logModule\controllers\actions\ErrorIndex;
-use bariew\logModule\controllers\actions\ErrorView;
+use bariew\abstractModule\controllers\AbstractModelController;
 use Yii;
-use bariew\logModule\models\Error;
-use bariew\logModule\models\ErrorSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ErrorController implements the CRUD actions for Error model.
  */
-class ErrorController extends Controller
+class ErrorController extends AbstractModelController
 {
     public function behaviors()
     {
@@ -35,27 +28,13 @@ class ErrorController extends Controller
      */
     public function actions()
     {
-        return [
-            'delete' => ErrorDelete::className(),
-            'view' => ErrorView::className(),
-            'index' => ErrorIndex::className(),
-            'delete-all' => ErrorDeleteAll::className(),
-        ];
+        return array_intersect_key(parent::actions(), array_flip(['delete', 'view', 'index',]));
     }
 
-    /**
-     * Finds the Error model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Error the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    public function actionDeleteAll()
     {
-        if (($model = Error::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        $model = $this->findModel();
+        $model->deleteAll(['id' => $model->search()->select('id')->column()]);
+        return $this->redirect(['index']);
     }
 }

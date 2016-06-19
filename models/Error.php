@@ -16,7 +16,6 @@ use yii\log\Logger;
  * This is the model class for table "log_error".
  *
  * @property integer $id
- * @property integer $owner_id
  * @property integer $level
  * @property string $category
  * @property integer $log_time
@@ -38,7 +37,7 @@ class Error extends AbstractModel
     public function rules()
     {
         return [
-            [['level', 'log_time', 'owner_id'], 'integer'],
+            [['level', 'log_time'], 'integer'],
             [['category', 'prefix'], 'string', 'max' => 255]
         ];
     }
@@ -50,7 +49,6 @@ class Error extends AbstractModel
     {
         return [
             'id'       =>  Yii::t('modules/log', 'Id'),
-            'owner_id'   =>  Yii::t('modules/log', 'Owner'),
             'level'    =>  Yii::t('modules/log', 'Level'),
             'category' =>  Yii::t('modules/log', 'Category'),
             'log_time' =>  Yii::t('modules/log', 'Log Time'),

@@ -18,7 +18,7 @@ class ErrorIndex extends Action
      */
     public function run()
     {
-        $searchModel = new ErrorSearch();
+        $searchModel = $this->controller->findModel(false, true);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->controller->render('index', [
