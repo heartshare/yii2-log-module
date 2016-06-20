@@ -66,11 +66,11 @@ class ItemSearch extends AbstractModelExtender
             'id' => $this->id,
             'user_id' => $this->user_id,
             'owner_id' => $this->owner_id,
+            'model_id' => $this->model_id,
         ]);
 
         $query->andFilterWhere(['like', 'event', $this->event])
             ->andFilterWhere(['like', 'model_name', $this->model_name])
-            ->andFilterWhere(['like', 'model_id', $this->model_id])
             ->andFilterWhere(['like', 'message', $this->message]);
         if ($this->created_at) {
             $query->andWhere("DATE_FORMAT(FROM_UNIXTIME(created_at), '%Y-%m-%d') = :created_at")
