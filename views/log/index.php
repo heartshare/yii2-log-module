@@ -5,13 +5,13 @@ use yii\grid\GridView;
 use bariew\yii2Tools\helpers\GridHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel bariew\logModule\models\ItemSearch */
+/* @var $searchModel bariew\logModule\models\LogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('modules/log', 'Log list');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="item-index">
+<div class="log-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

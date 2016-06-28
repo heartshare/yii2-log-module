@@ -12,7 +12,7 @@ use yii\helpers\Html;
 use yii\helpers\Inflector;
 use app\modules\user\models\User;
 /**
- * This is the model class for table "log_item".
+ * This is the model class for table "log_log".
  *
  * @property integer $id
  * @property integer $user_id
@@ -25,7 +25,7 @@ use app\modules\user\models\User;
  *
  * @property User $user
  */
-class Item extends AbstractModel
+class Log extends AbstractModel
 {
     /**
      * @inheritdoc

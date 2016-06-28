@@ -9,11 +9,11 @@ use yii\data\ActiveDataProvider;
 
 
 /**
- * ItemSearch represents the model behind the search form about `bariew\logModule\models\Item`.
+ * LogSearch represents the model behind the search form about `bariew\logModule\models\Log`.
  *
- * @mixin Item
+ * @mixin Log
  */
-class ItemSearch extends AbstractModelExtender
+class LogSearch extends AbstractModelExtender
 {
     /**
      * @inheritdoc

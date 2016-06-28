@@ -9,8 +9,8 @@
 namespace bariew\logModule\widgets;
 
 
-use bariew\logModule\models\Item;
-use bariew\logModule\models\ItemSearch;
+use bariew\logModule\models\Log;
+use bariew\logModule\models\LogSearch;
 use yii\base\Widget;
 
 class ModelEventLog extends Widget
@@ -20,8 +20,8 @@ class ModelEventLog extends Widget
     public $viewFile = 'event_log';
     public function run()
     {
-        $class = Item::childClass() . 'Search';
-        /** @var ItemSearch $searchModel */
+        $class = Log::childClass() . 'Search';
+        /** @var LogSearch $searchModel */
         $searchModel = new $class();
         $dataProvider = $searchModel->search([$searchModel->formName() => [
             'model_name' => get_class($this->model),

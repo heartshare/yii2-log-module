@@ -8,11 +8,8 @@
 namespace bariew\logModule\components;
 
 
-use bariew\logModule\models\Item;
-use bariew\yii2Tools\helpers\EventHelper;
+use bariew\logModule\models\Log;
 use yii\base\Event;
-use yii\db\AfterSaveEvent;
-use yii\db\ActiveRecord;
 
 /**
  * Description.
@@ -25,6 +22,6 @@ class EventHandler
 {
     public static function common(Event $event)
     {
-        return Item::create($event)->save(false);
+        return Log::create($event)->save(false);
     }
 }

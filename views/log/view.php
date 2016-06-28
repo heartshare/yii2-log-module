@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model bariew\logModule\models\Item */
+/* @var $model bariew\logModule\models\Log */
 
 $this->title = Yii::t('app', 'View Log');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('modules/log', 'Log list'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="item-view">
+<div class="log-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('modules/log', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('modules/log', 'Are you sure you want to delete this item?'),
+                'confirm' => Yii::t('modules/log', 'Are you sure you want to delete this log?'),
                 'method' => 'post',
             ],
         ]) ?>

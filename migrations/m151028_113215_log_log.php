@@ -3,11 +3,11 @@
 use yii\db\Migration;
 use bariew\yii2Tools\helpers\MigrationHelper;
 
-class m151028_113215_log_item extends Migration
+class m151028_113215_log_log extends Migration
 {
     public function up()
     {
-        $this->createTable(\bariew\logModule\models\Item::tableName(), [
+        $this->createTable(\bariew\logModule\models\Log::tableName(), [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
             'owner_id' => $this->integer(),
@@ -21,6 +21,6 @@ class m151028_113215_log_item extends Migration
 
     public function down()
     {
-        $this->dropTable(bariew\logModule\models\Item::tableName());
+        $this->dropTable(bariew\logModule\models\Log::tableName());
     }
 }

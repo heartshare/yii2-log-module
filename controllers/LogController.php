@@ -1,4 +1,9 @@
 <?php
+/**
+ * LogController class file.
+ * @copyright (c) 2016, Pavel Bariev
+ * @license http://www.opensource.org/licenses/bsd-license.php
+ */
 
 namespace bariew\logModule\controllers;
 
@@ -7,9 +12,13 @@ use Yii;
 use yii\filters\VerbFilter;
 
 /**
- * ItemController implements the CRUD actions for Item model.
+ * Description.
+ *
+ * Usage:
+ * @author Pavel Bariev <bariew@yandex.ru>
+ *
  */
-class ItemController extends AbstractModelController
+class LogController extends AbstractModelController
 {
     public function behaviors()
     {

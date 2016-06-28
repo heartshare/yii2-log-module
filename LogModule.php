@@ -2,7 +2,7 @@
 
 namespace bariew\logModule;
 
-class Module extends \yii\base\Module
+class LogModule extends \yii\base\Module
 {
     /**
      * @var array for menu auto generation
@@ -13,7 +13,7 @@ class Module extends \yii\base\Module
             'items' => [
                 [
                     'label'    => 'List',
-                    'url' => ['/log/item/index']
+                    'url' => ['/log/log/index']
                 ],
                 [
                     'label'    => 'Errors',
